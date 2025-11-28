@@ -51,10 +51,7 @@ export class CommentController {
 
   async getByPost(req: Request, res: Response) {
     try {
-      const postId = req.query.postId as string;
-      if (!postId) return res.status(400).json({ error: "postId is required" });
-
-      const comments = await commentRepository.getByPost(postId);
+      const comments = await commentRepository.getByPost(req.params.postId);
       res.status(200).json(comments);
     } catch (err) {
       console.error(err);
@@ -64,11 +61,7 @@ export class CommentController {
 
   async getBySender(req: Request, res: Response) {
     try {
-      const senderId = req.query.senderId as string;
-      if (!senderId)
-        return res.status(400).json({ error: "senderId is required" });
-
-      const comments = await commentRepository.getBySender(senderId);
+      const comments = await commentRepository.getBySender(req.params.senderId);
       res.status(200).json(comments);
     } catch (err) {
       console.error(err);
@@ -103,3 +96,5 @@ export class CommentController {
     }
   }
 }
+
+export default new CommentController();
