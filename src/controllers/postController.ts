@@ -37,7 +37,7 @@ export class PostController {
 
   async getBySender(req: Request, res: Response) {
     try {
-      const senderId = req.query.sender as string;
+      const senderId = req.query.senderId as string;
       if (!senderId)
         return res.status(400).json({ error: "senderId is required" });
 
@@ -73,3 +73,5 @@ export class PostController {
     }
   }
 }
+
+export default new PostController();
