@@ -1,25 +1,23 @@
 import mongoose, { Document, Types, Schema } from "mongoose";
 
-export interface IPost extends Document {
-  description: string;
-  location: string;
+export interface IComment extends Document {
+  content: string;
+  post: Types.ObjectId;
   sender: Types.ObjectId;
 }
 
-const postSchema = new mongoose.Schema<IPost>(
+const commentSchema = new mongoose.Schema<IComment>(
   {
-    description: {
+    content: {
       type: String,
       required: true,
       trim: true,
     },
-
-    location: {
-      type: String,
+    post: {
+      type: Schema.Types.ObjectId,
+      ref: "Post",
       required: true,
-      trim: true,
     },
-
     sender: {
       type: Schema.Types.ObjectId,
       required: true,
@@ -30,4 +28,4 @@ const postSchema = new mongoose.Schema<IPost>(
   }
 );
 
-export const PostModel = mongoose.model<IPost>("Post", postSchema);
+export const CommentModel = mongoose.model<IComment>("Comment", commentSchema);
