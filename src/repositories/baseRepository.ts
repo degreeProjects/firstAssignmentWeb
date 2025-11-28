@@ -20,7 +20,10 @@ export class BaseRepository<ModelType extends Document> {
     return await this.model.findById(id);
   }
 
-  async update(id: string | Types.ObjectId, data: Partial<ModelType>): Promise<ModelType | null> {
+  async update(
+    id: string | Types.ObjectId,
+    data: Partial<ModelType>
+  ): Promise<ModelType | null> {
     return await this.model.findByIdAndUpdate(id, data, { new: true });
   }
 
