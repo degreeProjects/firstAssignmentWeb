@@ -1,5 +1,6 @@
 import PostController from "../controllers/postController";
 import express from "express";
+
 const router = express.Router();
 
 router.get("/", PostController.getAll.bind(PostController));
