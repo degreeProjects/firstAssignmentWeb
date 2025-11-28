@@ -1,12 +1,24 @@
 import { Request, Response } from "express";
 import { PostRepository } from "../repositories/postRepository";
+import { Types } from "mongoose";
 
 const postRepository = new PostRepository();
 
 export class PostController {
   async create(req: Request, res: Response) {
     try {
-      const post = await postRepository.create(req.body);
+      const { description, location, sender } = req.body;
+      if (!description || !location || !sender) {
+        return res
+          .status(400)
+          .json({ error: "description, location, and sender are required" });
+      }
+
+      const post = await postRepository.create({
+        description,
+        location,
+        sender: new Types.ObjectId(sender),
+      });
       res.status(200).json(post);
     } catch (err) {
       console.error(err);
